@@ -92,10 +92,8 @@ class SortingManager:
         return comparison_count
 
     def determine_state(self):
-        lists_to_merge = len(self.sortableDeque)
-        if lists_to_merge == 2:
+        if self.is_sorted():
             self.wait_for_action()
-            print("-sorted")
         else:
             self.determine_action()
 
@@ -136,9 +134,7 @@ class SortingManager:
             pass
 
     def wait_for_action(self):
-        if len(self.currentAction) != 0:
-            self.undoableActions.append(self.currentAction)
-            self.currentAction = deque()
+        pass
 
     def move_element_from_list1_do(self):
         temp_element = self.sortableDeque[1].popleft()
@@ -183,6 +179,12 @@ class SortingManager:
                 pass
 
             self.determine_state()
+
+            if len(self.currentAction) != 0:
+                self.undoableActions.append(self.currentAction)
+                self.currentAction = deque()
+
+
 
     def undo(self):
         if len(self.undoableActions) >= 1:

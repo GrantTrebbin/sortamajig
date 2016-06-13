@@ -40,6 +40,8 @@ class TkLabelImage(tkinter.ttk.Label):
             self.image = Image.open(filename)
         except OSError as e:
             self.image = self.default
+        except AttributeError as e:
+            self.image = self.default
 
         self.fill()
 
